@@ -37,6 +37,21 @@ defmodule SelfCheckoutTest do
     assert SelfCheckout.convert_to_num("blah") == :invalid
   end
 
+  test "displays the total cost of the times" do
+    result = capture_io(fn ->
+      SelfCheckout.display_total_cost(50)
+    end)
+    assert result == "The total cost is £50"
+  end
+
+  test "sums up all the items from the user" do
+    result = capture_io([input: "25\n2\n10\n1", capture_prompt: false], fn ->
+      SelfCheckout.calculate_total_cost_for_items(2)
+    end)
+
+    assert result == "The total cost is £60"
+  end
+
   defp capture_user_input(input, func) do
     capture_io([input: input, capture_prompt: false], fn ->
       value = func.()
