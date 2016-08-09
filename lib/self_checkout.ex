@@ -1,5 +1,9 @@
 defmodule SelfCheckout do
 
+  def main(_args) do
+    calculate_total_cost_for_items(3)
+  end
+
   def calculate_total_cost_for_items(num_of_items) do
     calc_total(num_of_items, 0)
   end
@@ -31,11 +35,11 @@ defmodule SelfCheckout do
   end
 
   defp calc_tax(cost) do
-    tax = cost * 0.055
+    Float.round(cost * 0.055, 2)
   end
 
   defp calc_total(cost) do
-    total = cost * 1.055
+    Float.round(cost * 1.055, 2)
   end
 
   defp calc_total(0, total_amount), do: display_all_costs(total_amount)
